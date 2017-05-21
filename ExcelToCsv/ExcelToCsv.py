@@ -16,7 +16,7 @@ def get_sheet_from_input(sheets):
     sheet_choice = ''
     for i, val in enumerate(sheets):
         sheet_choice = sheet_choice + str(i + 1) + '. ' + val + '\n'
-    sheet_idx = int(input(sheet_choice)) - 1
+    sheet_idx = int(eval(input(sheet_choice))) - 1
     return sheet_idx
 
 
@@ -36,9 +36,9 @@ def get_file_from_input(pattern='*.xl*'):
     for i, file in enumerate(files):
         file_choice = file_choice + str(i) + '. ' + str(file) + '\n'
 
-    file = files[int(input(file_choice))]
+    file = files[int(eval(input(file_choice)))]
     if file == files[0]:
-        file = input('Enter input filename ')
+        file = eval(input('Enter input filename '))
     return file
 
 
@@ -108,15 +108,15 @@ def console_tool():
     else:
         output_file = input_file[: input_file.find('.')] + '.csv'
         if args.verbose:
-            use_default = input(r'%s  filename  OK? y/n ' % output_file)
+            use_default = eval(input(r'%s  filename  OK? y/n ' % output_file))
             if use_default == 'n':
-                output_file = input('Enter destination filename: ')
+                output_file = eval(input('Enter destination filename: '))
 
     if args.skiprows:
         start = args.skiprows
     else:
         if args.verbose:
-            start = int(input('skip first n rows: '))
+            start = int(eval(input('skip first n rows: ')))
         else:
             start = 0
 
@@ -129,7 +129,7 @@ def console_tool():
             else:
                 sheet_idx = 0
 
-        print('converting %s' % wb.sheet_by_index(sheet_idx).name)
+        print(('converting %s' % wb.sheet_by_index(sheet_idx).name))
     ExcelToCsv(input_file, sheet_idx=sheet_idx, start=start,
                output_file=output_file)
 
